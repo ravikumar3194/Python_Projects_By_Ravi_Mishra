@@ -1,0 +1,11 @@
+# Automated Data Scraping and Analysis Tool
+
+## Description
+This project scrapes book data from the "Books to Scrape" website, processes the data, and generates visualizations to analyze book prices.
+
+## Setup Instructions
+1. Clone the repository.
+2. Create a virtual environment and activate it.
+3. Install the required libraries:
+   ```bash
+   pip install requests beautifulsoup4 pandas matplotlib

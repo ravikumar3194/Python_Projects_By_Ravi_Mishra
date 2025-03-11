@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Scraper</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<h2>Book Scraper - Sorted & Filtered Results</h2>
+
+<!-- Sorting & Filtering Form -->
+<form method="GET" action="/">
+    <label for="sort_by">Sort by:</label>
+    <select name="sort_by" id="sort_by">
+        <option value="">Select</option>
+        <option value="price_asc">Price: Low to High</option>
+        <option value="price_desc">Price: High to Low</option>
+        <option value="rating_asc">Rating: Low to High</option>
+        <option value="rating_desc">Rating: High to Low</option>
+    </select>
+
+    <label for="rating">Filter by Rating:</label>
+    <select name="rating" id="rating">
+        <option value="">All</option>
+        <option value="One">1 Star</option>
+        <option value="Two">2 Stars</option>
+        <option value="Three">3 Stars</option>
+        <option value="Four">4 Stars</option>
+        <option value="Five">5 Stars</option>
+    </select>
+
+    <label for="availability">Filter by Availability:</label>
+    <select name="availability" id="availability">
+        <option value="">All</option>
+        <option value="In stock">In Stock</option>
+        <option value="Out of stock">Out of Stock</option>
+    </select>
+
+    <button type="submit">Apply</button>
+</form>
+
+<!-- Display Scraped Books -->
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Price (£)</th>
+        <th>Availability</th>
+        <th>Rating</th>
+        <th>Book URL</th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td>{{ book["Title"] }}</td>
+        <td>{{ book["Price (£)"] }}</td>
+        <td>{{ book["Availability"] }}</td>
+        <td>{{ book["Rating"] }}</td>
+        <td><a href="{{ book['Book URL'] }}" target="_blank">View Book</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
