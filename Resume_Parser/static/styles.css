@@ -1,0 +1,27 @@
+/* Example Custom Styles */
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .jumbotron {
+    background: url('https://source.unsplash.com/1600x900/?technology') no-repeat center center;
+    background-size: cover;
+    color: #fff;
+    text-shadow: 2px 2px 4px #000;
+  }
+  
+  .card {
+    margin-bottom: 20px;
+  }
+  
+  footer a {
+    font-size: 1.2rem;
+  }
+  
+  .btn-primary:hover {
+    background-color: #004085;
+    border-color: #004085;
+  }
+  

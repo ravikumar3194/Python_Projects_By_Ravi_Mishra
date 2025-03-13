@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resume Parser & Analyzer</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Resume Parser</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <!-- Add more nav items if needed -->
+      </ul>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <div class="jumbotron jumbotron-fluid text-center bg-light">
+    <div class="container">
+      <h1 class="display-4">Automated Resume Parser & Analyzer</h1>
+      <p class="lead" style="color: #f39c12; text-shadow: 1px 1px 2px #666; font-weight: bold;">
+        Upload your resume to extract key details and view insightful analytics.
+      </p>
+    </div>
+  </div>
+  
+  <!-- Main Container -->
+  <div class="container">
+    <!-- File Upload Form -->
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <div class="card shadow">
+          <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+              <div class="form-group">
+                <label for="resume">Upload your resume (PDF):</label>
+                <input type="file" name="resume" id="resume" accept="application/pdf" class="form-control-file">
+              </div>
+              <button type="submit" class="btn btn-success">Parse Resume</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Results Dashboard -->
+    {% if result %}
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <div class="card shadow">
+          <div class="card-header bg-info text-white">
+            <h2 class="h5 mb-0">Parsed Resume Details</h2>
+          </div>
+          <div class="card-body">
+            <ul class="list-group">
+              <li class="list-group-item"><strong>Name:</strong> {{ result.Name }}</li>
+              <li class="list-group-item"><strong>Email:</strong> {{ result.Email }}</li>
+              <li class="list-group-item"><strong>Phone:</strong> {{ result.Phone }}</li>
+              <li class="list-group-item"><strong>Skills:</strong> {{ result.Skills }}</li>
+              <li class="list-group-item"><strong>Education:</strong> {{ result.Education }}</li>
+              <li class="list-group-item"><strong>Experience:</strong> {{ result.Experience }}</li>
+              <li class="list-group-item"><strong>Certifications:</strong> {{ result.Certifications }}</li>
+            </ul>
+            <!-- Modal Trigger Button -->
+            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#detailsModal">
+              View Full JSON Details
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    
+    <!-- Data Visualization: Skills Distribution -->
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <div class="card shadow">
+          <div class="card-header bg-secondary text-white">
+            <h2 class="h5 mb-0">Skills Distribution</h2>
+          </div>
+          <div class="card-body">
+            <canvas id="skillsChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal for Full JSON Details -->
+  <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title" id="detailsModalLabel">Full Resume JSON Data</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <pre>{{ result | tojson(indent=2) }}</pre>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer class="bg-primary text-white text-center py-3 mt-5">
+    <div class="container">
+      <p class="mb-0">&copy; 2025 Ravi Kumar Mishra. All rights reserved.</p>
+      <div>
+        <a href="https://github.com/ravikumar3194" class="text-white mr-3"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/ravi-mishra/" class="text-white mr-3"><i class="fab fa-linkedin"></i></a>
+        <a href="https://twitter.com/yourtwitter" class="text-white"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <!-- Chart.js Script -->
+  <script>
+    var ctx = document.getElementById('skillsChart').getContext('2d');
+    var skillsChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: {{ skills_labels|safe }},
+        datasets: [{
+          label: 'Skill Frequency',
+          data: {{ skills_values|safe }},
+          backgroundColor: 'rgba(54, 162, 235, 0.6)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              precision: 0
+            }
+          }]
+        }
+      }
+    });
+  </script>
+</body>
+</html>
