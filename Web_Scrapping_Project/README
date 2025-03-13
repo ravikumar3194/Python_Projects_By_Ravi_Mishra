@@ -1,11 +1,110 @@
-# Automated Data Scraping and Analysis Tool
+# Web Scrapping Project
 
-## Description
-This project scrapes book data from the "Books to Scrape" website, processes the data, and generates visualizations to analyze book prices.
+This project is a web scraping and Flask-based web application that extracts data about books from [Books to Scrape](http://books.toscrape.com/). The project scrapes key details such as book title, price, availability, rating, and the URL of the book detail page. The scraped data is stored in a CSV file and served via a Flask web app, allowing users to sort and filter the data interactively.
 
-## Setup Instructions
-1. Clone the repository.
-2. Create a virtual environment and activate it.
-3. Install the required libraries:
+## Features
+
+- **Data Scraping:**  
+  Utilizes `requests` and `BeautifulSoup` to scrape book details from the target website.
+
+- **Data Storage:**  
+  Saves the scraped data into a CSV file (`scraped_books.csv`) for persistence and further analysis.
+
+- **Flask Web App:**  
+  A simple web interface built with Flask that allows users to:
+  - View the scraped book data.
+  - Sort by price or rating.
+  - Filter by rating and availability.
+
+- **Responsive UI:**  
+  The front-end is designed using HTML, CSS, and Bootstrap to ensure a modern, responsive design.
+
+## Technologies Used
+
+- **Python 3**
+- **Flask**
+- **Pandas**
+- **Requests**
+- **BeautifulSoup4**
+- **CSV**
+- **Bootstrap**
+
+## Setup and Installation
+
+1. **Clone the Repository:**
+
    ```bash
-   pip install requests beautifulsoup4 pandas matplotlib
+   git clone https://github.com/ravikumar3194/Python_Projects_By_Ravi_Mishra.git
+   cd Python_Projects_By_Ravi_Mishra/Web_Scrapping_Project
+Create a Virtual Environment and Activate It:
+
+bash
+Copy
+Edit
+python -m venv venv
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
+Install Dependencies:
+
+Ensure that your requirements.txt includes all necessary libraries. For example:
+
+plaintext
+Copy
+Edit
+Flask==2.2.2
+pandas==1.5.3
+requests==2.28.1
+beautifulsoup4==4.11.1
+pdfminer.six==20221105
+spacy==3.5.0
+Then run:
+
+bash
+Copy
+Edit
+pip install -r requirements.txt
+Run the Scraper:
+
+Execute the web scraping script to generate/update scraped_books.csv:
+
+bash
+Copy
+Edit
+python scraper.py
+Run the Flask Application:
+
+Start the web server:
+
+bash
+Copy
+Edit
+python app.py
+Open your browser and navigate to http://127.0.0.1:5000 to see the web app in action.
+
+Project Structure
+graphql
+Copy
+Edit
+Web_Scrapping_Project/
+├── app.py                  # Main Flask application
+├── scraper.py              # Web scraping script
+├── scraped_books.csv       # CSV file storing scraped book data
+├── requirements.txt        # List of Python dependencies
+├── templates/              # HTML templates for Flask
+│   └── index.html          # Main page template
+└── static/                 # Static assets (CSS, images, etc.)
+    └── styles.css          # Custom styles for the web app
+Usage
+Scraping Data:
+Run scraper.py to scrape the latest book data from the website.
+
+Web Application:
+Run app.py to launch the web application where you can view, sort, and filter the scraped data.
+
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+Author
+Ravi Kumar Mishra
