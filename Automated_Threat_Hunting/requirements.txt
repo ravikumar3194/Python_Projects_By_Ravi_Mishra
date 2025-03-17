@@ -1,0 +1,18 @@
+# Streamlit for the dashboard
+streamlit
+
+# Data handling and processing
+pandas
+numpy
+
+# Machine learning model handling
+scikit-learn
+joblib
+
+# Visualization (if used in app.py)
+matplotlib
+seaborn
+
+# For handling YAML configs (if used)
+pyyaml
+
